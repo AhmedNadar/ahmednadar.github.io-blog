@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Thinking Outload]]></title>
+  <link href="http://AhmedNadar.github.io/atom.xml" rel="self"/>
+  <link href="http://AhmedNadar.github.io/"/>
+  <updated>2014-02-18T16:16:04-05:00</updated>
+  <id>http://AhmedNadar.github.io/</id>
+  <author>
+    <name><![CDATA[Ahmed]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[How to Create Codeblock for Octopress]]></title>
+    <link href="http://AhmedNadar.github.io/blog/2013/09/24/how-to-create-codeblock-for-octopress/"/>
+    <updated>2013-09-24T00:35:46-04:00</updated>
+    <id>http://AhmedNadar.github.io/blog/2013/09/24/how-to-create-codeblock-for-octopress</id>
+    <content type="html"><![CDATA[<p>While I was searching for different syntax highlighting for my <a href="http://octopress.org/">Octopress</a> blog, I found this great <a href="http://blog.codebykat.com/2013/05/23/gorgeous-octopress-codeblocks-with-coderay/">post</a> by <a href="http://codebykat.com/">Kat</a>, where she applied Github codeblock (highlighter colors, softer edges,…) alike using <a href="http://coderay.rubychan.de/">Coderay</a>.
+<a href="http://codebykat.com/">Kat</a> mentioned every stpes on how she done it, it’s worth reading.</p>
+
+<!--more-->
+
+<p>What I want to write about is what you need to do in order to show different syntax highlightings for each language codeblock.</p>
+
+<p>Following is a Ruby codeblock, all what you have to do for Coderay to display the prober syntax highlighting is add <code>Ruby</code> as argument for <code>lang:</code> liks so <code>lang:ruby</code>:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption class="code-header" style="margin-bottom:-5px;"><span>Open my&#8230;</span><a href="https://github.com/ahmednadar">Githiub! </a></figcaption> <div class="CodeRay">
+  <div class="code"><pre>
+        ... code goes here
+</pre></div>
+</div>
+ </figure></notextile></div>
+
+<p>Once you do that, wrap your code within <code>{ % codeblock % }</code> tag in order to Coderay does it’s magic:</p>
+
+<h4 id="langruby">lang:ruby</h4>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption class="code-header" style="margin-bottom:-5px;"><span>app/controllers/sessions_controller.rb</span><a href="https://github.com/AhmedNadar/local_merchant/blob/ef2315944646a3a7f8963fe37b5125b707388d8a/app/controllers/sessions_controller.rb">Got to&#8230;! </a></figcaption> <div class="CodeRay">
+  <div class="code"><pre>
+  <span class="keyword">def</span> <span class="function">create</span>
+    user = login(params[<span class="symbol">:email</span>], params[<span class="symbol">:password</span>], params[<span class="symbol">:remember_me</span>])
+    <span class="keyword">if</span> user
+      redirect_back_or_to root_url, <span class="symbol">:notice</span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Logged in!</span><span class="delimiter">&quot;</span></span>
+    <span class="keyword">else</span>
+      flash.now.alert = <span class="string"><span class="delimiter">&quot;</span><span class="content">Email or password was invalid.</span><span class="delimiter">&quot;</span></span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+</pre></div>
+</div>
+ </figure></notextile></div>
+
+<h4 id="langdiff">lang:diff</h4>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption class="code-header" style="margin-bottom:-5px;"><span>app/views/devise/passwords/new.html.erb</span><a href="https://github.com/AhmedNadar/pinpic/commit/fa3ff6f42d8d6361365a101bc4f82559f9cd3672#diff-4">link</a></figcaption> <div class="CodeRay">
+  <div class="code"><pre>
+<span class="line change"><span class="change">@@</span> -1,10 +1,10 <span class="change">@@</span></span>
+
+ &lt;h2&gt;Forgot your password?&lt;/h2&gt;
+
+<span class="line delete"><span class="delete">-</span>&lt;%= form_for(resource, <span class="eyecatcher">:as =&gt; resource_name, :url =&gt; password_path(resource_name), :html =&gt; { :method =&gt;</span> :post }) do |f| %&gt;</span>
+<span class="line insert"><span class="insert">+</span>&lt;%= form_for(resource, <span class="eyecatcher">as: resource_name, url: password_path(resource_name), html: { method:</span> :post }) do |f| %&gt;</span>
+  &lt;%= devise_error_messages! %&gt;
+
+<span class="line delete"><span class="delete">-</span> &lt;div&gt;&lt;%= f.label :<span class="eyecatcher">email</span> %&gt;&lt;br /&gt;</span>
+<span class="line delete"><span class="delete">-</span> &lt;%= f.<span class="eyecatcher">email_field :email</span>, :autofocus =&gt; true %&gt;&lt;/div&gt;</span>
+<span class="line insert"><span class="insert">+</span> &lt;div&gt;&lt;%= f.label :<span class="eyecatcher">login</span> %&gt;&lt;br /&gt;</span>
+<span class="line insert"><span class="insert">+</span> &lt;%= f.<span class="eyecatcher">text_field :login</span>, :autofocus =&gt; true %&gt;&lt;/div&gt;</span>
+
+  &lt;div&gt;&lt;%= f.submit &quot;Send me reset password instructions&quot; %&gt;&lt;/div&gt;
+ &lt;% end %&gt;
+</pre></div>
+</div>
+ </figure></notextile></div>
+
+<h4 id="langjavascript">lang:javascript</h4>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption class="code-header" style="margin-bottom:-5px;"><span>JavaScript snippet </span></figcaption>
+ <div class="CodeRay">
+  <div class="code"><pre>
+<span class="keyword">var</span> recipe = {
+    <span class="key">title</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Spaghetti Vongole</span><span class="delimiter">&quot;</span></span>,
+    <span class="key">serving</span>: <span class="integer">4</span>,
+    <span class="key">ingredients</span>: [<span class="string"><span class="delimiter">&quot;</span><span class="content">spaghetti</span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">clam</span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">parsley</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">cherry tomatoes</span><span class="delimiter">&quot;</span></span>]
+    };
+    
+console.log(recipe.title);
+console.log(<span class="string"><span class="delimiter">&quot;</span><span class="content">Serving: </span><span class="delimiter">&quot;</span></span> + recipe.serving);
+console.log(<span class="string"><span class="delimiter">&quot;</span><span class="content">Ingredients :</span><span class="delimiter">&quot;</span></span>);
+    <span class="keyword">for</span>(i=<span class="integer">0</span>; i &lt; recipe.ingredients.length; i++){
+        console.log(recipe.ingredients[i]);
+    }
+</pre></div>
+</div>
+ </figure></notextile></div>
+
+<p>If you noticed at the beginning of the post I have codeblock with line numbers looks like it’s not highlighted. Actually it’s highlighted as text 
+<code>lang:text</code>. You may also notice the codeblock missing it’s caption and link.</p>
+
+<p>The way it’s been done is; after the code snippet I added <code>{:lang="text"}</code>.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption class="code-header" style="margin-bottom:-5px;"><span>Time to be Awesome! (awesome.rb) </span></figcaption>
+ <div class="CodeRay">
+  <div class="code"><pre>
+... code goes here
+</pre></div>
+</div>
+ </figure></notextile></div>
+
+<h3 id="adding-code-snippets">Adding code snippets</h3>
+
+<p>There are several ways to add code snippets to your blog using Kramdown which offers 2 ways to add code snippets Fenced and Indented.</p>
+
+<p>1- <strong>Fenced</strong>:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="CodeRay">
+  <div class="code"><pre>
+~~~~~
+~~~
+def write(dest)
+  old_write(dest)
+  post_write if respond_to?(:post_write)
+end
+~~~
+{:lang=&quot;ruby&quot;}
+~~~~~
+</pre></div>
+</div>
+ </figure></notextile></div>
+
+<p>2- <strong>Indented</strong>:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="CodeRay">
+  <div class="code"><pre>
+~~~~~
+~~~
+puts &quot;hello world&quot;
+~~~
+{:lang=&quot;ruby&quot;}
+~~~~~
+</pre></div>
+</div>
+ </figure></notextile></div>
+
+<p>You can also use signle backtick for inline code snippet: <code>`print 'hello'`{:lang="ruby"}</code> or <code>`def hello`{:lang="ruby"}</code>.</p>
+
+<p>Here you go, now you can apply <a href="http://coderay.rubychan.de/">Coderay</a> syntax highlighting for your codeblock and add them in several ways.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Give Me a Ball and I Will Do Goodness]]></title>
+    <link href="http://AhmedNadar.github.io/blog/2013/08/30/give-me-a-ball-and-i-will-do-goodness/"/>
+    <updated>2013-08-30T00:28:11-04:00</updated>
+    <id>http://AhmedNadar.github.io/blog/2013/08/30/give-me-a-ball-and-i-will-do-goodness</id>
+    <content type="html"><![CDATA[<p>Want to make people run? Don’t give them a badge for running. Give them a ball and shove four sticks in the ground. They’ll run around the field chasing the ball (and each other) for ages. The experience is intrinsically challenging and amusing, and the running is a by-product. Games rely on dynamics like these and rules to generate the conditions for positive engagement.</p>
+
+<!--more-->
+
+<p>These dynamics are all based on basic principles. Chief among these principles are Motivation, Feedback, and Challenge.</p>
+
+<p>Life is ambiguous. Games are not. At every moment in a game, your goal, your motivation as a player is clear. When it changes, this is clearly marked. Your clarity of action is perfect, existential angst disappears. This is a rewardign state of being. Many other activities in life are frustrating because these conditions don’t apply, so there’s no way to know how you’re doing.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Learning the Right Way]]></title>
+    <link href="http://AhmedNadar.github.io/blog/2013/08/22/learning-the-right-way/"/>
+    <updated>2013-08-22T23:50:37-04:00</updated>
+    <id>http://AhmedNadar.github.io/blog/2013/08/22/learning-the-right-way</id>
+    <content type="html"><![CDATA[<p>When i decide to learn Ruby and Ruby on Rails, I have done good search for what is the best way to learn RoR. The community online is marvellous. Since RoR is kind of new kid in the programming framework area, I have found many resources and different way to learn. </p>
+
+<p>I like learning from videos, it does help clearing up some area it’s hard to be describe if its written lesson.. Beside watching live code is exciting. But in the same time, it has its cons, which its one way teaching. No communication with the author or other learners like me.</p>
+
+<!--more-->
+
+<p>Writing lessons has its advantages as well. When the author writes in details and mentions how and why behind each line of code, it rocks.</p>
+
+<p>I can see Its not easy to teach and write online is not as easy as doing in class, or with attendees. </p>
+
+<p>Lately I discovered new way of learning, not exactly, but the method <a href="http://ruby.learncodethehardway.org/">Zed A. Shaw</a> follow is kind of new to me. It’s not a rocket science but it’s different from the rest.</p>
+
+<p>Zed A. Shaw followed an easy method but hard in the same time. It’s easy to write simple lesson contain very little to learn but in the same time its very important and you can not move to next lesson before grasping all details in current lesson. </p>
+
+<p>In the same time, he created an environment for everyone to ask and participate in  every lesson. What is cool about that is, he answers all question which is wonderful. Also I can see what others are talking about or similar issues to mine and how it is been solved. Awesome.</p>
+
+<p>The hard way in my opinion is, he give tasks needs to be done in order to understand more and practice beside he encourage to read and search online for specific method or class that would help understand his code.</p>
+
+<p>I have found my self write more code since each lesson contain small chunk of code, search online for any mysterious methods and classes. With more reading, practice and hand on code all the time, I discovered I learn a lot and pay attention to details.</p>
+
+<p>I’d agree with <a href="http://www.mkltesthead.com/2011/10/practicum-learning-ruby-hard-way-why.html">Michael Larsen</a> “I can’t just build a tool and blindly and half-understandingly maintain it. I need to develop the knowledge necessary to build stuff from scratch and then be abe to maintain, grow or restart different projects. The simple hack approach won’t cut it going forward, so I have to go for it and make this all work. A bit every day (and a missive writing about it)”</p>
+
+<p>Its <a href="http://ruby.learncodethehardway.org/">hard way of learning</a> but its more enjoyable which it easier to learn.</p>
+]]></content>
+  </entry>
+  
+</feed>

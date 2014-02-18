@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: meta | Thinking Outload]]></title>
+  <link href="http://AhmedNadar.github.io/blog/categories/meta/atom.xml" rel="self"/>
+  <link href="http://AhmedNadar.github.io/"/>
+  <updated>2014-02-18T16:16:04-05:00</updated>
+  <id>http://AhmedNadar.github.io/</id>
+  <author>
+    <name><![CDATA[Ahmed]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[How to Create Codeblock for Octopress]]></title>
+    <link href="http://AhmedNadar.github.io/blog/2013/09/24/how-to-create-codeblock-for-octopress/"/>
+    <updated>2013-09-24T00:35:46-04:00</updated>
+    <id>http://AhmedNadar.github.io/blog/2013/09/24/how-to-create-codeblock-for-octopress</id>
+    <content type="html"><![CDATA[<p>While I was searching for different syntax highlighting for my <a href="http://octopress.org/">Octopress</a> blog, I found this great <a href="http://blog.codebykat.com/2013/05/23/gorgeous-octopress-codeblocks-with-coderay/">post</a> by <a href="http://codebykat.com/">Kat</a>, where she applied Github codeblock (highlighter colors, softer edges,…) alike using <a href="http://coderay.rubychan.de/">Coderay</a>.
+<a href="http://codebykat.com/">Kat</a> mentioned every stpes on how she done it, it’s worth reading.</p>
+
+<!--more-->
+
+<p>What I want to write about is what you need to do in order to show different syntax highlightings for each language codeblock.</p>
+
+<p>Following is a Ruby codeblock, all what you have to do for Coderay to display the prober syntax highlighting is add <code>Ruby</code> as argument for <code>lang:</code> liks so <code>lang:ruby</code>:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption class='code-header' style='margin-bottom:-5px;'><span>Open my…</span><a href='https://github.com/ahmednadar'>Githiub! </a></figcaption> <div class="CodeRay">
+  <div class="code"><pre>
+        … code goes here
+</pre></div>
+</div>
+ </figure></notextile></div></p>
+
+<p>Once you do that, wrap your code within <code>{ % codeblock % }</code> tag in order to Coderay does it’s magic:</p>
+
+<h4 id="langruby">lang:ruby</h4>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption class='code-header' style='margin-bottom:-5px;'><span>app/controllers/sessions_controller.rb</span><a href='https://github.com/AhmedNadar/local_merchant/blob/ef2315944646a3a7f8963fe37b5125b707388d8a/app/controllers/sessions_controller.rb'>Got to…! </a></figcaption> <div class="CodeRay">
+  <div class="code"><pre>
+  <span class="keyword">def</span> <span class="function">create</span>
+    user = login(params[<span class="symbol">:email</span>], params[<span class="symbol">:password</span>], params[<span class="symbol">:remember_me</span>])
+    <span class="keyword">if</span> user
+      redirect_back_or_to root_url, <span class="symbol">:notice</span> =&amp;gt; “Logged in!”
+    <span class="keyword">else</span>
+      flash.now.alert = “Email <span class="keyword">or</span> password was invalid.”
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+</pre></div>
+</div>
+ </figure></notextile></div></p>
+
+<h4 id="langdiff">lang:diff</h4>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption class='code-header' style='margin-bottom:-5px;'><span>app/views/devise/passwords/new.html.erb</span><a href='https://github.com/AhmedNadar/pinpic/commit/fa3ff6f42d8d6361365a101bc4f82559f9cd3672#diff-4'>link</a></figcaption> <div class="CodeRay">
+  <div class="code"><pre>
+<span class="change"><span class="change">@@</span> -1,10 +1,10 <span class="change">@@</span></span>&lt;/p&gt;
+
+<span class="line comment">&lt;h2&gt;Forgot your password?&lt;/h2&gt;</span>
+
+<span class="line comment">&lt;p&gt;-&amp;lt;%= form_for(resource, :as =&amp;gt; resource_name, :url =&amp;gt; password_path(resource_name), :html =&amp;gt; { :method =&amp;gt; :post }) do |f| %&amp;gt;</span>
+<span class="line insert"><span class="insert">+</span>&amp;lt;%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %&amp;gt;</span>
+  &amp;lt;%= devise_error_messages! %&amp;gt;&lt;/p&gt;
+
+<span class="line comment">&lt;ul&gt;</span>
+  &lt;li&gt;
+    &lt;div&gt;&amp;lt;%= f.label :email %&amp;gt;&lt;br /&gt;
+<span class="line comment">&lt;/div&gt;</span>
+  &lt;/li&gt;
+  &lt;li&gt;&amp;lt;%= f.email_field :email, :autofocus =&amp;gt; true %&amp;gt;&amp;lt;/div&amp;gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;div&gt;&amp;lt;%= f.label :login %&amp;gt;&lt;br /&gt;
+<span class="line comment">&lt;/div&gt;</span>
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&amp;lt;%= f.text_field :login, :autofocus =&amp;gt; true %&amp;gt;&amp;lt;/div&amp;gt;&lt;/p&gt;
+
+    &lt;div&gt;&amp;lt;%= f.submit &quot;Send me reset password instructions&quot; %&amp;gt;&lt;/div&gt;
+    &lt;p&gt;&amp;lt;% end %&amp;gt;
+</pre></div>
+</div>
+ </figure></notextile></div></p>
+  </li>
+</ul>
+
+<h4 id="langjavascript">lang:javascript</h4>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption class='code-header' style='margin-bottom:-5px;'><span>JavaScript snippet </span></figcaption>
+ <div class="CodeRay">
+  <div class="code"><pre>
+<span class="keyword">var</span> recipe = {
+    <span class="key">title</span>: <span class="error">“</span>Spaghetti Vongole<span class="error">”</span>,
+    <span class="key">serving</span>: <span class="integer">4</span>,
+    <span class="key">ingredients</span>: [<span class="error">“</span>spaghetti<span class="error">”</span>,<span class="error">”</span>clam<span class="error">”</span>,<span class="error">”</span>parsley<span class="error">”</span>, <span class="error">“</span>cherry tomatoes<span class="error">”</span>]
+    };&lt;<span class="regexp"><span class="delimiter">/</span><span class="content">p&gt;
+
+&lt;p&gt;console.log(recipe.title);
+console.log(“Serving: “ + recipe.serving);
+console.log(“Ingredients :”);
+    for(i=0; i &amp;lt; recipe.ingredients.length; i++){
+        console.log(recipe.ingredients[i]);
+    }
+</span></span></pre></div>
+</div>
+ </figure></notextile></div></p>
+
+<p>If you noticed at the beginning of the post I have codeblock with line numbers looks like it’s not highlighted. Actually it’s highlighted as text 
+<code>lang:text</code>. You may also notice the codeblock missing it’s caption and link.</p>
+
+<p>The way it’s been done is; after the code snippet I added <code>{:lang="text"}</code>.</p>
+
+<p lang="text"><div class='bogus-wrapper'><notextile><figure class='code'><figcaption class='code-header' style='margin-bottom:-5px;'><span>Time to be Awesome! (awesome.rb) </span></figcaption>
+ <div class="CodeRay">
+  <div class="code"><pre>
+… code goes here
+</pre></div>
+</div>
+ </figure></notextile></div></p>
+
+<h3 id="adding-code-snippets">Adding code snippets</h3>
+
+<p>There are several ways to add code snippets to your blog using Kramdown which offers 2 ways to add code snippets Fenced and Indented.</p>
+
+<p>1- <strong>Fenced</strong>:</p>
+
+<p lang="ruby"><div class='bogus-wrapper'><notextile><figure class='code'> <div class="CodeRay">
+  <div class="code"><pre>
+~~~~~
+~~~
+def write(dest)
+  old_write(dest)
+  post_write if respond_to?(:post_write)
+end
+~~~&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;</pre></div>
+</div>
+ </figure></notextile></div>
+
+2- **Indented**:
+
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="CodeRay">
+  <div class="code"><pre>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div&gt;&lt;table class=&quot;CodeRay&quot;&gt;&lt;tr&gt;
+  &lt;td class=&quot;line-numbers&quot;&gt;&lt;pre&gt;&lt;a href=&quot;#n1&quot; name=&quot;n1&quot;&gt;1&lt;/a&gt;
+&lt;/pre&gt;&lt;/td&gt;
+  &lt;td class=&quot;code&quot;&gt;&lt;pre&gt;puts &lt;span class=&quot;string&quot;&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;content&quot;&gt;hello world&lt;/span&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;p&gt;~~~~~
+</pre></div>
+</div>
+ </figure></notextile></div></p>
+
+<p>You can also use signle backtick for inline code snippet: <code>`print 'hello'`{:lang="ruby"}</code> or <code>`def hello`{:lang="ruby"}</code>.</p>
+
+<p>Here you go, now you can apply <a href="http://coderay.rubychan.de/">Coderay</a> syntax highlighting for your codeblock and add them in several ways.</p>
+]]></content>
+  </entry>
+  
+</feed>
