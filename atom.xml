@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-<<<<<<< HEAD
   <title><![CDATA[Thinking Outload]]></title>
   <link href="http://AhmedNadar.github.io/atom.xml" rel="self"/>
   <link href="http://AhmedNadar.github.io/"/>
@@ -9,21 +8,11 @@
   <id>http://AhmedNadar.github.io/</id>
   <author>
     <name><![CDATA[Ahmed]]></name>
-=======
-  <title><![CDATA[My Octopress Blog]]></title>
-  <link href="http://AhmedNadar.github.io/atom.xml" rel="self"/>
-  <link href="http://AhmedNadar.github.io/"/>
-  <updated>2014-02-18T15:37:25-05:00</updated>
-  <id>http://AhmedNadar.github.io/</id>
-  <author>
-    <name><![CDATA[Your Name]]></name>
->>>>>>> 32b46b3295f5a4a956ae2d757c110d477c8cf7fe
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
   
-<<<<<<< HEAD
   <entry>
     <title type="html"><![CDATA[How to Create Codeblock for Octopress]]></title>
     <link href="http://AhmedNadar.github.io/blog/2013/09/24/how-to-create-codeblock-for-octopress/"/>
@@ -207,6 +196,4 @@ puts &quot;hello world&quot;
 ]]></content>
   </entry>
   
-=======
->>>>>>> 32b46b3295f5a4a956ae2d757c110d477c8cf7fe
 </feed>
