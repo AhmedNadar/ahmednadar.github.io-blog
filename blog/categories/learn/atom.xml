@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: learn | Thinking Out Load]]></title>
+  <title><![CDATA[Category: learn | Thinking Outload]]></title>
   <link href="http://AhmedNadar.github.io/blog/categories/learn/atom.xml" rel="self"/>
   <link href="http://AhmedNadar.github.io/"/>
-  <updated>2014-02-18T23:15:57-05:00</updated>
+  <updated>2014-02-18T23:16:43-05:00</updated>
   <id>http://AhmedNadar.github.io/</id>
   <author>
-    <name><![CDATA[Ahmed Nadar]]></name>
+    <name><![CDATA[Ahmed]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
