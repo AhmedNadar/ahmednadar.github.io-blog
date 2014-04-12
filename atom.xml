@@ -4,7 +4,7 @@
   <title><![CDATA[Thinking Out Load]]></title>
   <link href="http://AhmedNadar.github.io/atom.xml" rel="self"/>
   <link href="http://AhmedNadar.github.io/"/>
-  <updated>2014-02-19T11:03:45-05:00</updated>
+  <updated>2014-04-12T14:17:15-04:00</updated>
   <id>http://AhmedNadar.github.io/</id>
   <author>
     <name><![CDATA[Ahmed Nadar]]></name>
@@ -12,6 +12,103 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Overwrite how Capybara ignores hidden elements with visible option]]></title>
+    <link href="http://AhmedNadar.github.io/blog/2014/01/10/overwrite-how-Capybara-ignores-hidden-elements-with-visible-option/"/>
+    <updated>2014-01-10T10:22:54-05:00</updated>
+    <id>http://AhmedNadar.github.io/blog/2014/01/10/overwrite-how-Capybara-ignores-hidden-elements-with-visible-option</id>
+    <content type="html"><![CDATA[<p>Working with <a href="http://rubydoc.info/github/jnicklas/capybara/master">Caybara</a> is fun and joy for me as an early web designer and front-end developer. I always care about the user experience -<a href="https://en.wikipedia.org/wiki/User_experience">UX</a>- and how user would interact with the page.</p>
+
+<p>While I was working on simple test using Capybara, the test didn’t pass although I have what is require for test to pass. Here is my test:</p>
+
+<!--more-->
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption class="code-header" style="margin-bottom:-5px;"><span>view_home_page_spec.rb  </span></figcaption>
+ <div class="CodeRay">
+  <div class="code"><pre> 
+        feature <span class="string"><span class="delimiter">&quot;</span><span class="content">view home page</span><span class="delimiter">&quot;</span></span> <span class="keyword">do</span>
+                 scenario <span class="string"><span class="delimiter">&quot;</span><span class="content">user see page title</span><span class="delimiter">&quot;</span></span> <span class="keyword">do</span>
+                   visit root_path
+                    expect(page).to have_css <span class="string"><span class="delimiter">'</span><span class="content">title</span><span class="delimiter">'</span></span>, <span class="key">text</span>: <span class="string"><span class="delimiter">'</span><span class="content">Birds</span><span class="delimiter">'</span></span>
+                <span class="keyword">end</span> 
+        <span class="keyword">end</span>
+</pre></div>
+</div>
+ </figure></notextile></div>
+
+<p>In my test I’m expecting the page to have the title element with value of “<strong>Bird</strong>”. But when I run my test, it faild:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="CodeRay">
+  <div class="code"><pre>
+view home page
+  user sees relevant information (<span class="constant">FAILED</span> - <span class="integer">1</span>)
+
+<span class="key">Failures</span>:
+
+  <span class="integer">1</span>) view home page user see page title
+     <span class="constant">Failure</span>/<span class="key">Error</span>: expect(page).to have_css <span class="string"><span class="delimiter">'</span><span class="content">title</span><span class="delimiter">'</span></span>, <span class="key">text</span>: <span class="string"><span class="delimiter">'</span><span class="content">Todos</span><span class="delimiter">'</span></span>
+     <span class="constant">Capybara</span>::<span class="constant">ExpectationNotMet</span>:
+       expected to find css <span class="string"><span class="delimiter">&quot;</span><span class="content">title</span><span class="delimiter">&quot;</span></span> with text <span class="string"><span class="delimiter">&quot;</span><span class="content">Birds</span><span class="delimiter">&quot;</span></span> but there were no matches. Also found <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>, which matched the selector but <span class="keyword">not</span> all filters.
+     <span class="comment"># ./spec/integeration/view_home_spec.rb:6:in `block (2 levels) in &lt;top (required)&gt;'</span>
+</pre></div>
+</div>
+ </figure></notextile></div>
+
+<p>This is strange since I know the page has the <strong>Birds</strong> title. </p>
+
+<h3 id="background">Background</h3>
+
+<p>Capybara has an interesting option (<a href="https://github.com/jnicklas/capybara/blob/master/lib/capybara.rb#L20">Capybara.ignore_hidden_elements</a>) that configures the default query behaviour of finding nodes within the DOM. The default option value is ‘<a href="https://github.com/jnicklas/capybara/blob/master/lib/capybara.rb#L352">true</a>’, but we can overwrite the that value by passing <code>visible: false|true</code>. But it’s not that easy because Capybara support different <a href="https://github.com/jnicklas/capybara#drivers">drivers</a> such as <code>RackTest</code> and <code>Selenium</code>. Each one has it’s <code>visible?</code> method; which means each driver has it’s implementation for how to detect when an element on the page is visible or not. </p>
+
+<p>Capybara uses the <code>rack_test</code> driver by <a href="https://github.com/jnicklas/capybara/blob/master/lib/capybara.rb#L50">default</a>. But it’s not that good, here is why from the documantation:</p>
+
+<blockquote>
+  <p>Rack_test driver is fast but limited: it does not support JavaScript, nor is it able to access HTTP resources outside of your Rack application, such as remote APIs and OAuth services. To get around these limitations, you can set up a different default driver for your features.</p>
+</blockquote>
+
+<p>This limitation causes the <code>visible?</code> method to only look for elements with <code>style="display: none"</code> attribute. Which means we have to query selectors to find page nodes.</p>
+
+<h3 id="havecss-with-visible-option">have_css with visible option</h3>
+
+<p>The <a href="http://rubydoc.info/github/jnicklas/capybara/master/Capybara/RSpecMatchers:have_css">have_css</a> matcher is an instance method of <a href="http://rubydoc.info/github/jnicklas/capybara/master/frames/Capybara/RSpecMatchers">RSpecMatchers</a>, which is one of <a href="http://rubydoc.info/github/jnicklas/capybara/master">Caybara</a>’s modules. </p>
+
+<p>If you look closely to <code>have_css</code> method you will see, it accepts one or more <a href="http://rubydoc.info/github/jnicklas/capybara/master/Capybara/Query">options</a>, such as <code>:visible</code> </p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="CodeRay">
+  <div class="code"><pre> 
+<span class="keyword">def</span> <span class="function">have_css</span>(css, options={})
+  <span class="constant">HaveSelector</span>.new(<span class="symbol">:css</span>, css, options)
+<span class="keyword">end</span>
+</pre></div>
+</div>
+ </figure></notextile></div>
+
+<h3 id="solution">Solution</h3>
+
+<p>Since I know the page title is visible <code>visible: true</code> and my default capybara <code>rack_test</code> driver only sees invisible elements <code>visible: false</code>. I know i have to make make sure my element is not visible <code>visible: false</code>.</p>
+
+<p>Here is my test with the fix:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="CodeRay">
+  <div class="code"><pre> 
+ feature <span class="string"><span class="delimiter">&quot;</span><span class="content">view home page</span><span class="delimiter">&quot;</span></span> <span class="keyword">do</span>
+         scenario <span class="string"><span class="delimiter">&quot;</span><span class="content">user see page title</span><span class="delimiter">&quot;</span></span> <span class="keyword">do</span>
+            visit root_path
+            expect(page).to have_css <span class="string"><span class="delimiter">'</span><span class="content">title</span><span class="delimiter">'</span></span>, <span class="key">text</span>: <span class="string"><span class="delimiter">'</span><span class="content">Birds</span><span class="delimiter">'</span></span>, <span class="key">visible</span>: <span class="predefined-constant">false</span>
+          <span class="keyword">end</span> 
+<span class="keyword">end</span>
+</pre></div>
+</div>
+ </figure></notextile></div>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>If you chose rack test as your test driver then you would face issues with elements visibility. I would recommend using <a href="https://github.com/jnicklas/capybara#selenium">Selenium</a>, where it has no issue with visibility and it has Firefox already installed and you are ready to test.</p>
+
+<p>Happy coding :)</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[How to Create Codeblock for Octopress]]></title>
